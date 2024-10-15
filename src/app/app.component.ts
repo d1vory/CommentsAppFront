@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {CommentsSectionComponent} from './comments-section/comments-section.component';
+import {CommentsSectionComponent} from './components/comments-section/comments-section.component';
 
 @Component({
   selector: 'app-root',
