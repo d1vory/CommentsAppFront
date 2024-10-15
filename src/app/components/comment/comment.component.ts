@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
+import {MatIcon} from '@angular/material/icon';
+import {IComment} from '../../data/Comment';
+import {DatePipe} from '@angular/common';
 
 
 @Component({
@@ -12,11 +15,13 @@ import {MatCardModule} from '@angular/material/card';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIcon,
+    DatePipe
   ],
   templateUrl: './comment.component.html',
   styleUrl: './comment.component.css'
 })
 export class CommentComponent {
-
+  @Input() comment!: IComment;
 }

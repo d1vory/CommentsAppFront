@@ -1,12 +1,30 @@
 <mat-card class="comment-card">
-  <mat-card-header>
-    <mat-card-title>John Doe</mat-card-title>
-    <mat-card-subtitle>2 hours ago</mat-card-subtitle>
-  </mat-card-header>
+  <div class="comment-header">
+    <!-- User avatar and name -->
+    <div class="user-details">
+      <a class="username" [href]="comment.user.homepage" target="_blank">{{ comment.user.username }}</a>
+      <span class="timestamp">{{ comment.createdAt | date: 'MMM d, y, h:mm a' }}</span>
+    </div>
+  </div>
+
+  <!-- Comment content -->
   <mat-card-content>
-    <p>This is a comment text. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <p>{{ comment.text }}</p>
+
+    <!-- File Attachment -->
+    <div *ngIf="comment.file" class="file-attachment">
+      <mat-icon>attachment</mat-icon>
+      <a [href]="comment.file" download>Download Attachment</a>
+    </div>
   </mat-card-content>
+
+  <!-- Comment actions -->
   <mat-card-actions>
-    <button mat-button color="primary">Reply</button>
+    <button mat-icon-button color="primary" class="action-btn">
+      <mat-icon>reply</mat-icon> Reply
+    </button>
+    <button mat-icon-button color="accent" class="action-btn">
+      <mat-icon>favorite_border</mat-icon> Like
+    </button>
   </mat-card-actions>
 </mat-card>

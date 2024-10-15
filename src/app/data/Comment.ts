@@ -1,9 +1,9 @@
-import {User} from './User';
+import {IUser} from './User';
 
-export interface Comment {
+export interface IComment {
   id: number;
   text: string;
   createdAt: Date;
   file: string;
-  user: User;
+  user: IUser;
 }
