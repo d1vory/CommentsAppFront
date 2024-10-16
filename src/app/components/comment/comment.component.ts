@@ -5,7 +5,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
 import {MatIcon} from '@angular/material/icon';
 import {IComment} from '../../data/Comment';
-import {DatePipe} from '@angular/common';
+import {DatePipe, NgIf} from '@angular/common';
 
 
 @Component({
@@ -17,11 +17,20 @@ import {DatePipe} from '@angular/common';
     MatInputModule,
     MatButtonModule,
     MatIcon,
-    DatePipe
+    DatePipe,
+    NgIf
   ],
   templateUrl: './comment.component.html',
   styleUrl: './comment.component.css'
 })
 export class CommentComponent {
   @Input() comment!: IComment;
+
+
+  constructor() {
+
+  }
+
+
+
 }

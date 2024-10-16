@@ -1,17 +1,24 @@
 import {Injectable} from '@angular/core';
 import {IComment} from '../data/Comment';
-
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommentsService {
-  baseUrl = 'http://localhost:5052';
+  baseUrl = 'http://localhost:5052/';
 
-  constructor() { }
+  constructor(private http: HttpClient) {}
 
-  async getAllComments(): Promise<IComment[]> {
-    const data =await fetch(this.baseUrl + '/comments');
-    return (await data.json()) ?? [];
+  getComments(): Observable<IComment[]> {
+    return this.http.get<IComment[]>(this.baseUrl + 'comments').pipe(
+      map(comments => comments.map(comment => ({
+        ...comment,
+        file: comment.file ? this.baseUrl + comment.file : ''
+      })))
+    );
   }
+
 }

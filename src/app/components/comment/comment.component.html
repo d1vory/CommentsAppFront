@@ -4,27 +4,33 @@
     <div class="user-details">
       <a class="username" [href]="comment.user.homepage" target="_blank">{{ comment.user.username }}</a>
       <span class="timestamp">{{ comment.createdAt | date: 'MMM d, y, h:mm a' }}</span>
+
+      <!-- Email and homepage -->
+      <div class="user-contact">
+        <a class="email" [href]="'mailto:' + comment.user.email">{{ comment.user.email }}</a>
+        <a class="homepage" [href]="comment.user.homepage" target="_blank">Visit Homepage</a>
+      </div>
     </div>
   </div>
 
-  <!-- Comment content -->
   <mat-card-content>
     <p>{{ comment.text }}</p>
 
-    <!-- File Attachment -->
     <div *ngIf="comment.file" class="file-attachment">
-      <mat-icon>attachment</mat-icon>
-      <a [href]="comment.file" download>Download Attachment</a>
+      <ng-template [ngIf]="comment.file.endsWith('.txt')" [ngIfElse]="elseBlock">
+        <a [href]="comment.file" download> <mat-icon>attachment</mat-icon> Download Attachment</a>
+      </ng-template>
+      <ng-template #elseBlock>
+        <img [src]="comment.file"  alt="image"/>
+      </ng-template>
+
+
     </div>
   </mat-card-content>
 
-  <!-- Comment actions -->
   <mat-card-actions>
     <button mat-icon-button color="primary" class="action-btn">
       <mat-icon>reply</mat-icon> Reply
-    </button>
-    <button mat-icon-button color="accent" class="action-btn">
-      <mat-icon>favorite_border</mat-icon> Like
     </button>
   </mat-card-actions>
 </mat-card>
