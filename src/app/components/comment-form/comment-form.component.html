@@ -43,7 +43,8 @@
 
     <mat-form-field appearance="outline" class="file-input">
       <mat-label>Upload Files (images and .txt files only)</mat-label>
-      <ngx-mat-file-input formControlName="file" placeholder="Required input" valuePlaceholder="No file selected" required accept=".txt,image/*"></ngx-mat-file-input>
+
+      <ngx-mat-file-input formControlName="file" (change)="onFileSelected($event)" placeholder="Required input" valuePlaceholder="No file selected" required accept=".txt,image/*"></ngx-mat-file-input>
       <mat-icon matSuffix>folder</mat-icon>
       <mat-error *ngIf="commentForm.get('file')?.hasError('maxContentSize')">
         The total size must not exceed {{commentForm.get('file')?.getError('maxContentSize').maxSize | byteFormat}} ({{commentForm.get('file')?.getError('maxContentSize').actualSize
@@ -51,10 +52,6 @@
       </mat-error>
 
     </mat-form-field>
-
-    <div *ngIf="uploadedFile != undefined" class="uploaded-files">
-      <span>{{ uploadedFile.name }}</span>
-    </div>
 
     <button mat-raised-button color="primary" type="submit" [disabled]="commentForm.invalid">
       Submit

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {MatCard} from '@angular/material/card';
 import {MatError, MatFormFieldModule, MatLabel} from '@angular/material/form-field';
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -8,6 +8,7 @@ import {CommonModule} from '@angular/common';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {FileValidator, MaterialFileInputModule} from 'ngx-material-file-input';
 import {MatIcon} from '@angular/material/icon';
+import {CommentsService} from '../../services/commentService';
 
 @Component({
   selector: 'app-comment-form',
@@ -31,6 +32,7 @@ import {MatIcon} from '@angular/material/icon';
 })
 export class CommentFormComponent implements OnInit {
   readonly maxSize = 104857600; //10mb
+  commentsService: CommentsService = inject(CommentsService);
 
   commentForm = new FormGroup({
     username: new FormControl('', [Validators.required]),
@@ -80,6 +82,17 @@ export class CommentFormComponent implements OnInit {
       if (this.commentForm?.valid) {
       console.log('Form Submitted', this.commentForm.value);
       console.log('Uploaded Files:', this.uploadedFile);
+
+
+      this.commentsService.createComment(
+        <string>this.commentForm.value.username,
+        <string>this.commentForm.value.email,
+        <string>this.commentForm.value.captcha,
+        <string>this.commentForm.value.text,
+        <string>this.commentForm.value.homepage || '',
+        this.uploadedFile || undefined,
+      )
+
       // You can handle form submission here
     }
   }
