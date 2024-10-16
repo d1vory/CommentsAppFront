@@ -3,11 +3,12 @@ import {CommentComponent} from '../comment/comment.component';
 import {IComment} from '../../data/Comment';
 import {CommentsService} from '../../services/commentService';
 import {NgForOf} from '@angular/common';
+import {CommentFormComponent} from '../comment-form/comment-form.component';
 
 @Component({
   selector: 'app-comments-section',
   standalone: true,
-  imports: [CommentComponent, NgForOf],
+  imports: [CommentComponent, NgForOf, CommentFormComponent],
   templateUrl: './comments-section.component.html',
   styleUrl: './comments-section.component.css'
 })

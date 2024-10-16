@@ -1,0 +1,41 @@
+.comment-form-card {
+  padding: 16px;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+.comment-form{
+  display: flex;
+  flex-direction: column;
+  /*justify-content: center;*/
+
+
+  .mat-form-field {
+    width: 100%;
+    margin: 16px;
+  }
+
+  .file-input {
+    margin-top: 16px;
+  }
+
+  .uploaded-files {
+    margin-top: 16px;
+    ul {
+      padding: 0;
+      list-style: none;
+      li {
+        background-color: #f1f1f1;
+        padding: 8px;
+        margin: 4px 0;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  button {
+    margin-top: 16px;
+    width: 100%;
+  }
+}

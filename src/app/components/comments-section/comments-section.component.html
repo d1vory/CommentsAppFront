@@ -3,31 +3,16 @@
   <div class="comments">
     <h5>Comments (3)</h5>
 
-    <div class="comments-list">
-      <app-comment
-        *ngFor="let comment of commentsList"
-        [comment]="comment">
-      </app-comment>
-    </div>
+<!--    <div class="comments-list">-->
+<!--      <app-comment-->
+<!--        *ngFor="let comment of commentsList"-->
+<!--        [comment]="comment">-->
+<!--      </app-comment>-->
+<!--    </div>-->
 
   </div>
 
-  <div class="card mb-4">
-    <div class="card-header">Leave a comment</div>
-    <div class="card-body">
-      <form>
-        <div class="mb-3">
-          <label for="name" class="form-label">Name</label>
-          <input type="text" class="form-control" id="name" placeholder="Your name">
-        </div>
-        <div class="mb-3">
-          <label for="comment" class="form-label">Comment</label>
-          <textarea class="form-control" id="comment" rows="3" placeholder="Write your comment here"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Post Comment</button>
-      </form>
-    </div>
-  </div>
+<app-comment-form></app-comment-form>
 
 </div>
 
