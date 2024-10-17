@@ -13,14 +13,13 @@ export class CommentsService {
 
   constructor(private http: HttpClient) {}
 
-  getComments(): Observable<IComment[]> {
-    return this.http.get<PaginatedList<IComment>>(this.baseUrl + 'comments').pipe(
+  getComments(pageIndex: number = 1, pageSize: number=25): Observable<PaginatedList<IComment>> {
+    const params = {
+      pageIndex: pageIndex.toString(),
+      pageSize: pageSize.toString()
+    };
 
-      map(paginatedList => paginatedList.items.map(comment => ({
-        ...comment,
-        file: comment.file ? this.baseUrl + comment.file : ''
-      })))
-    );
+    return this.http.get<PaginatedList<IComment>>(this.baseUrl + 'comments', {params})
   }
 
   createComment(username: string, email: string, captcha: string, text: string, homepage: string = '', file: File | undefined): Observable<Object> {
@@ -35,16 +34,6 @@ export class CommentsService {
     }
 
     return this.http.post(this.baseUrl + 'comments', formData, {});
-    //   .subscribe({
-    //   next: (response) => {
-    //     console.log(response);
-    //   },
-    //   error: (error: HttpResponse<any>) => {
-    //     console.error('Error creating comment', error);
-    //   }
-    // })
-
-
   }
 
 }
