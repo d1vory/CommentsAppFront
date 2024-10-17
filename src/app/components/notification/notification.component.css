@@ -1,0 +1,67 @@
+.smc-simplealert-container {
+  display: none;
+  width: 30%;
+  position: absolute;
+  z-index: 99;
+  top: 0;
+  right: 0;
+}
+
+.is-visible-notification{
+  display: block;
+}
+
+.info-box {
+  color: #31708f;
+  background-color: #d9edf7;
+  border: 1px solid #bce8f1;
+  padding: 10px;
+}
+
+.error-box {
+  color: #a94442;
+  background-color: #f2dede;
+  border: 1px solid #ebccd1;
+  padding: 10px;
+}
+
+.warn-box {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border: 1px solid #faf2cc;
+  padding: 10px;
+}
+
+.success-box {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border: 1px solid #d0e9c6;
+  padding: 10px;
+}
+
+.smc-simplealert {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+@media (min-width: 599px) {
+  .smc-simplealert > *:not(:last-child) {
+    margin-right: 25px;
+  }
+
+  .smc-simplealert-container {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 599px) {
+  .hidden-xs {
+    display: none;
+  }
+
+  .smc-simplealert-container {
+    padding: 10px;
+  }
+}

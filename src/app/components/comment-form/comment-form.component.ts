@@ -9,6 +9,9 @@ import {MatButton, MatIconButton} from '@angular/material/button';
 import {FileValidator, MaterialFileInputModule} from 'ngx-material-file-input';
 import {MatIcon} from '@angular/material/icon';
 import {CommentsService} from '../../services/commentService';
+import {SimplealertModule} from 'simplealert';
+import {NotificationService} from '../../services/notificationService';
+import {NotificationType} from '../../data/Notification';
 
 @Component({
   selector: 'app-comment-form',
@@ -25,6 +28,7 @@ import {CommentsService} from '../../services/commentService';
     MaterialFileInputModule,
     MatIconButton,
     MatIcon,
+    SimplealertModule,
     //FormsModule,
   ],
   templateUrl: './comment-form.component.html',
@@ -45,7 +49,7 @@ export class CommentFormComponent implements OnInit {
   })
   uploadedFile: File | undefined;
 
-  constructor(private fb:FormBuilder) { }
+  constructor(private fb:FormBuilder, private notificationService: NotificationService) { }
 
   ngOnInit(): void {
     // this.commentForm = this.fb.group({
@@ -71,29 +75,40 @@ export class CommentFormComponent implements OnInit {
     }
   }
 
-    // Validate the file type (only allow images and text files)
     isValidFileType(file: File): boolean {
       const allowedTypes = ['image/png', 'image/jpeg', 'image/gif', 'text/plain'];
       return allowedTypes.includes(file.type);
     }
 
-    // Submit the form
     onSubmit(): void {
       if (this.commentForm?.valid) {
       console.log('Form Submitted', this.commentForm.value);
       console.log('Uploaded Files:', this.uploadedFile);
 
+        this.notificationService.notify({
+          title: 'Oh Oh 😕',
+          type: NotificationType.success,
+          message: "asddsajkhasdhjasdhjasdj",
+        });
 
-      this.commentsService.createComment(
-        <string>this.commentForm.value.username,
-        <string>this.commentForm.value.email,
-        <string>this.commentForm.value.captcha,
-        <string>this.commentForm.value.text,
-        <string>this.commentForm.value.homepage || '',
-        this.uploadedFile || undefined,
-      )
+      // const response = this.commentsService.createComment(
+      //   <string>this.commentForm.value.username,
+      //   <string>this.commentForm.value.email,
+      //   <string>this.commentForm.value.captcha,
+      //   <string>this.commentForm.value.text,
+      //   <string>this.commentForm.value.homepage || '',
+      //   this.uploadedFile || undefined,
+      // )
+      //
+      //   response.subscribe({
+      //     next: (response) => {
+      //       console.log(response);
+      //     },
+      //     error: (error) => {
+      //       console.error('Error creating comment', error);
+      //     }
+      //   })
 
-      // You can handle form submission here
     }
   }
 

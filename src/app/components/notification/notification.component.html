@@ -1,0 +1,30 @@
+<!--<div-->
+<!--  [class.is-visible-notification]="showNotification"-->
+<!--  class="ma-notification"-->
+<!--  [class]="incommingNotification.type"-->
+<!--&gt;-->
+<!--  <h3 class="ma-notification-title">-->
+<!--    {{ incommingNotification.title }}-->
+<!--  </h3>-->
+<!--  <p class="ma-notification-paragraph">{{ incommingNotification.message }}</p>-->
+<!--</div>-->
+
+<div class="smc-simplealert-container"  [class.is-visible-notification]="showNotification" [@info-slide-in]="showNotification">
+  <div class="mat-elevation-z1 smc-simplealert"
+       [class]="incommingNotification.type + '-box'">
+    <div style="flex: 0 0 auto" class="hidden-xs">
+      <ng-container [ngSwitch]="incommingNotification.type">
+        <mat-icon *ngSwitchCase="'info'">info</mat-icon>
+        <mat-icon *ngSwitchCase="'error'">error</mat-icon>
+        <mat-icon *ngSwitchCase="'warn'">warning</mat-icon>
+        <mat-icon *ngSwitchCase="'success'">done</mat-icon>
+      </ng-container>
+    </div>
+    <div style="flex: 1 1 auto">
+      {{ incommingNotification.message }}
+    </div>
+    <button mat-icon-button style="flex: 0 0 auto" (click)="showNotification=false">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>

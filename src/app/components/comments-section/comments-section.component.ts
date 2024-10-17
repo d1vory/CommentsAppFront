@@ -4,11 +4,13 @@ import {IComment} from '../../data/Comment';
 import {CommentsService} from '../../services/commentService';
 import {NgForOf} from '@angular/common';
 import {CommentFormComponent} from '../comment-form/comment-form.component';
+import {SimplealertModule} from 'simplealert';
+import {NotificationComponent} from '../notification/notification.component';
 
 @Component({
   selector: 'app-comments-section',
   standalone: true,
-  imports: [CommentComponent, NgForOf, CommentFormComponent],
+  imports: [CommentComponent, NgForOf, CommentFormComponent, SimplealertModule, NotificationComponent],
   templateUrl: './comments-section.component.html',
   styleUrl: './comments-section.component.css'
 })
@@ -16,6 +18,8 @@ import {CommentFormComponent} from '../comment-form/comment-form.component';
 export class CommentsSectionComponent implements OnInit{
   commentsList: IComment[] = [];
   commentsService: CommentsService = inject(CommentsService);
+  isOpenAlert: boolean = true;
+
 
   ngOnInit(): void {
     this.fetchComments();

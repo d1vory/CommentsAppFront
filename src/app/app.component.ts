@@ -3,11 +3,14 @@ import { RouterOutlet } from '@angular/router';
 import {CommentsSectionComponent} from './components/comments-section/comments-section.component';
 import { HttpClient } from '@angular/common/http';
 import {CommentsService} from './services/commentService';
+import {BrowserModule} from '@angular/platform-browser';
+import {SimplealertModule} from 'simplealert';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommentsSectionComponent],
+  imports: [RouterOutlet, CommentsSectionComponent, SimplealertModule],
   providers: [HttpClient],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
