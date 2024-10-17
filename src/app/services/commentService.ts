@@ -3,6 +3,7 @@ import {IComment} from '../data/Comment';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
+import {PaginatedList} from '../data/PaginatedList';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,9 @@ export class CommentsService {
   constructor(private http: HttpClient) {}
 
   getComments(): Observable<IComment[]> {
-    return this.http.get<IComment[]>(this.baseUrl + 'comments').pipe(
-      map(comments => comments.map(comment => ({
+    return this.http.get<PaginatedList<IComment>>(this.baseUrl + 'comments').pipe(
+
+      map(paginatedList => paginatedList.items.map(comment => ({
         ...comment,
         file: comment.file ? this.baseUrl + comment.file : ''
       })))
