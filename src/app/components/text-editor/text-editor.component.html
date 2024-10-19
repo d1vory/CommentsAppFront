@@ -1,0 +1,12 @@
+<div class="text-editor">
+  <!-- Contenteditable div to enable rich text editing -->
+  <div id="content-editable" contenteditable="true" class="content-box" [(ngModel)]="content"></div>
+
+  <!-- Buttons for wrapping the selected text with HTML tags -->
+  <div class="button-group">
+    <button mat-button (click)="wrapText('a')">Link (a)</button>
+    <button mat-button (click)="wrapText('i')">Italic (i)</button>
+    <button mat-button (click)="wrapText('strong')">Bold (strong)</button>
+    <button mat-button (click)="wrapText('code')">Code (code)</button>
+  </div>
+</div>

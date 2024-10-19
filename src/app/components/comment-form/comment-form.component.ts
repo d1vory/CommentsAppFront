@@ -13,6 +13,7 @@ import {SimplealertModule} from 'simplealert';
 import {NotificationService} from '../../services/notificationService';
 import {NotificationType} from '../../data/Notification';
 import {MyError} from '../../data/Error';
+import {TextEditorComponent} from '../text-editor/text-editor.component';
 
 @Component({
   selector: 'app-comment-form',
@@ -30,6 +31,7 @@ import {MyError} from '../../data/Error';
     MatIconButton,
     MatIcon,
     SimplealertModule,
+    TextEditorComponent,
   ],
   templateUrl: './comment-form.component.html',
   styleUrl: './comment-form.component.css'
