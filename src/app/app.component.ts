@@ -6,11 +6,13 @@ import {CommentsService} from './services/commentService';
 import {BrowserModule} from '@angular/platform-browser';
 import {SimplealertModule} from 'simplealert';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { QuillModule } from 'ngx-quill'
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommentsSectionComponent, SimplealertModule],
+  imports: [RouterOutlet, CommentsSectionComponent, SimplealertModule, QuillModule],
   providers: [HttpClient],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

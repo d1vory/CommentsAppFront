@@ -33,9 +33,10 @@
       </mat-error>
     </mat-form-field>
 
-    <app-text-editor formControlName="text"></app-text-editor>
-    <mat-error *ngIf="commentForm.get('text')?.hasError('required')">Comment is required</mat-error>
+<!--    <app-text-editor formControlName="text"></app-text-editor>-->
+<!--    <mat-error *ngIf="commentForm.get('text')?.hasError('required')">Comment is required</mat-error>-->
 
+    <quill-editor format="html" formControlName="text"></quill-editor>
 
     <mat-form-field appearance="outline" class="file-input">
       <mat-label>Upload Files (images and .txt files only)</mat-label>

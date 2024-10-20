@@ -13,13 +13,14 @@ import {SimplealertModule} from 'simplealert';
 import {NotificationService} from '../../services/notificationService';
 import {NotificationType} from '../../data/Notification';
 import {MyError} from '../../data/Error';
-import {TextEditorComponent} from '../text-editor/text-editor.component';
+import {QuillEditorComponent, QuillModule} from 'ngx-quill';
 
 @Component({
   selector: 'app-comment-form',
   standalone: true,
   imports: [
     CommonModule,
+    QuillEditorComponent,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -31,7 +32,7 @@ import {TextEditorComponent} from '../text-editor/text-editor.component';
     MatIconButton,
     MatIcon,
     SimplealertModule,
-    TextEditorComponent,
+    QuillModule
   ],
   templateUrl: './comment-form.component.html',
   styleUrl: './comment-form.component.css'
