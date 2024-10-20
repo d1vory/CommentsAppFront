@@ -33,15 +33,8 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Comment</mat-label>
-      <textarea matInput formControlName="text" placeholder="Write your comment" required></textarea>
-      <mat-error *ngIf="commentForm.get('text')?.hasError('required')">
-        Comment is required
-      </mat-error>
-    </mat-form-field>
-
-      <app-text-editor></app-text-editor>
+    <app-text-editor formControlName="text"></app-text-editor>
+    <mat-error *ngIf="commentForm.get('text')?.hasError('required')">Comment is required</mat-error>
 
 
     <mat-form-field appearance="outline" class="file-input">
