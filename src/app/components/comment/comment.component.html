@@ -1,11 +1,9 @@
 <mat-card class="comment-card">
   <div class="comment-header">
-    <!-- User avatar and name -->
     <div class="user-details">
       <a class="username" [href]="comment.user.homepage" target="_blank">{{ comment.user.username }}</a>
       <span class="timestamp">{{ comment.createdAt | date: 'MMM d, y, h:mm a' }}</span>
 
-      <!-- Email and homepage -->
       <div class="user-contact">
         <a class="email" [href]="'mailto:' + comment.user.email">{{ comment.user.email }}</a>
         <a class="homepage" [href]="comment.user.homepage" target="_blank">Visit Homepage</a>
@@ -14,7 +12,9 @@
   </div>
 
   <mat-card-content>
-    <p>{{ comment.text }}</p>
+
+    <div [innerHTML]="comment.text"></div>
+
 
     <div *ngIf="comment.file" class="file-attachment">
       <ng-template [ngIf]="comment.file.endsWith('.txt')" [ngIfElse]="elseBlock">

@@ -13,7 +13,7 @@ import {SimplealertModule} from 'simplealert';
 import {NotificationService} from '../../services/notificationService';
 import {NotificationType} from '../../data/Notification';
 import {MyError} from '../../data/Error';
-import {QuillEditorComponent, QuillModule} from 'ngx-quill';
+import {ContentChange, QuillEditorComponent, QuillModule} from 'ngx-quill';
 
 @Component({
   selector: 'app-comment-form',
@@ -85,7 +85,7 @@ export class CommentFormComponent implements OnInit {
         <string>this.commentForm.value.username,
         <string>this.commentForm.value.email,
         <string>this.commentForm.value.captcha,
-        <string>this.commentForm.value.text,
+        this.cleanCommentText(<string>this.commentForm.value.text),
         <string>this.commentForm.value.homepage || '',
         this.uploadedFile || undefined,
       )
@@ -112,6 +112,8 @@ export class CommentFormComponent implements OnInit {
     }
   }
 
-
+  cleanCommentText(text: string): string {
+    return  text.replaceAll("<p>", "").replaceAll("</p>", "").replaceAll("<em>", "<i>").replaceAll("</em>", "</i>");
+  }
 
 }

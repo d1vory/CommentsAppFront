@@ -9,10 +9,9 @@ import {provideQuillConfig} from 'ngx-quill';
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync(), provideHttpClient(),
     provideQuillConfig({
-      format: "text",
       modules: {
         syntax: false,
-        toolbar: [['bold', 'italic', 'link', 'code'],]
+        toolbar: [['bold', 'italic', 'link', 'code', "clean"],]
       }
     })
   ]
