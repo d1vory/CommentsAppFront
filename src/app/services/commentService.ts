@@ -42,4 +42,19 @@ export class CommentsService {
     return this.http.post(this.baseUrl + 'comments', formData, {});
   }
 
+  createReplyComment(commentId: number, username: string, email: string, captcha: string, text: string, homepage: string = '', file: File | undefined): Observable<Object> {
+    const url = `${this.baseUrl}comments/${commentId}/reply/`;
+    const formData: FormData = new FormData();
+    formData.append('username', username);
+    formData.append('email', email);
+    formData.append('captcha', captcha);
+    formData.append('text', text);
+    formData.append('homepage', homepage);
+    if(file){
+      formData.append('file', file, file.name);
+    }
+
+    return this.http.post(url, formData, {});
+  }
+
 }

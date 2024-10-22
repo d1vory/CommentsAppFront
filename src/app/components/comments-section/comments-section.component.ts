@@ -2,7 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {CommentComponent} from '../comment/comment.component';
 import {IComment} from '../../data/Comment';
 import {CommentsService} from '../../services/commentService';
-import {NgForOf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import {CommentFormComponent} from '../comment-form/comment-form.component';
 import {SimplealertModule} from 'simplealert';
 import {NotificationComponent} from '../notification/notification.component';
@@ -13,16 +13,20 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {MyError} from '../../data/Error';
 import {FormBuilder} from '@angular/forms';
 import {NotificationService} from '../../services/notificationService';
+import {MatCard} from '@angular/material/card';
+import {MatFabButton} from '@angular/material/button';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-comments-section',
   standalone: true,
-  imports: [CommentComponent, NgForOf, CommentFormComponent, SimplealertModule, NotificationComponent, MatPaginator],
+  imports: [CommentComponent, NgForOf, CommentFormComponent, SimplealertModule, NotificationComponent, MatPaginator, MatCard, MatFabButton, MatIcon, NgIf],
   templateUrl: './comments-section.component.html',
   styleUrl: './comments-section.component.css'
 })
 
 export class CommentsSectionComponent implements OnInit{
+  createComment:boolean = false;
   commentsList: IComment[] = [];
   commentsService: CommentsService = inject(CommentsService);
   totalComments: number = 0;
@@ -65,5 +69,9 @@ export class CommentsSectionComponent implements OnInit{
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
     this.fetchComments(this.pageIndex, this.pageSize);
+  }
+
+  toggleCreateCommentForm(): void {
+    this.createComment = !this.createComment;
   }
 }

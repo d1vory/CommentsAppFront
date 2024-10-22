@@ -26,11 +26,16 @@
 
 
     </div>
+
+    <div *ngIf="viewReplyForm" class="my-5">
+      <h6  class="text-center">Reply to {{comment.user.username}}</h6>
+      <app-comment-form [replyCommentId]="comment.id"></app-comment-form>
+    </div>
   </mat-card-content>
 
   <mat-card-actions class="d-flex ">
 
-      <button mat-fab extended color="primary"  class="d-flex justify-content-evenly action-btn px-4">
+      <button (click)="toggleReplyForm()" mat-fab extended color="primary"  class="d-flex justify-content-evenly action-btn px-4">
             <mat-icon>reply</mat-icon>
           <span>Reply</span>
       </button>

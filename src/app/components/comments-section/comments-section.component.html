@@ -1,11 +1,26 @@
 
-<app-notification class="myAlert">qweweqqweqweqweqweqwe</app-notification>
+<app-notification class="myAlert"></app-notification>
 
-<app-comment-form></app-comment-form>
-
+<mat-card>
 <div class="container my-5">
   <div class="comments">
-    <h5>Comments (3)</h5>
+    <div class="d-flex justify-content-between my-4">
+      <div >
+        <h5 >Comments ({{totalComments}})</h5>
+      </div>
+      <div>
+        <button (click)="toggleCreateCommentForm()" mat-fab extended color="primary"  class="  action-btn p-4">
+          <mat-icon fontIcon="edit"></mat-icon>
+          <span>Create a comment</span>
+        </button>
+      </div>
+
+    </div>
+
+    <div *ngIf="createComment" class="my-5">
+      <h4 class="text-center">Create a comment!</h4>
+      <app-comment-form></app-comment-form>
+    </div>
 
     <div class="comments-list">
       <app-comment
@@ -25,4 +40,4 @@
   </mat-paginator>
 </div>
 
-
+</mat-card>

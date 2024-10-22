@@ -12,6 +12,7 @@ import {Replies} from '../../data/Replies';
 import {HttpErrorResponse} from '@angular/common/http';
 import {MyError} from '../../data/Error';
 import {NotificationType} from '../../data/Notification';
+import {CommentFormComponent} from '../comment-form/comment-form.component';
 
 
 @Component({
@@ -25,14 +26,15 @@ import {NotificationType} from '../../data/Notification';
     MatIcon,
     DatePipe,
     NgIf,
-    NgForOf
+    NgForOf,
+    CommentFormComponent
   ],
   templateUrl: './comment.component.html',
   styleUrl: './comment.component.css'
 })
 export class CommentComponent {
   @Input() comment!: IComment;
-  //replies: Replies[] | null = null;
+  viewReplyForm:boolean = false;
 
 
   constructor(private commentService: CommentsService, private notificationService: NotificationService) {
@@ -55,7 +57,10 @@ export class CommentComponent {
         }
 
     })
-
-
   }
+
+  toggleReplyForm(){
+    this.viewReplyForm = !this.viewReplyForm;
+  }
+
 }
