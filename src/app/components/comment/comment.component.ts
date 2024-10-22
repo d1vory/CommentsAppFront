@@ -6,8 +6,6 @@ import {MatCardModule} from '@angular/material/card';
 import {MatIcon} from '@angular/material/icon';
 import {IComment} from '../../data/Comment';
 import {DatePipe, NgIf} from '@angular/common';
-import {documentToHtmlString} from '@contentful/rich-text-html-renderer';
-import { Document } from '@contentful/rich-text-types';
 
 
 @Component({
@@ -32,13 +30,5 @@ export class CommentComponent {
   constructor() {
 
   }
-
-  _returnHtmlFromRichText(richText: Document | null | undefined) {
-    if (richText === undefined || richText === null || richText.nodeType !== 'document') {
-      return '<p>Error</p>';
-    }
-    return documentToHtmlString(richText);
-  }
-
 
 }

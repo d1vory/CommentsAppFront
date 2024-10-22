@@ -104,7 +104,9 @@
     justify-content: flex-start;
 
     .action-btn {
-      margin-right: 16px;
+      width: 100%;
+      max-width: max-content;
+      /*margin-right: 16px;*/
 
       mat-icon {
         margin-right: 4px;
