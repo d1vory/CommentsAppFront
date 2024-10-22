@@ -19,7 +19,7 @@
 
     <div *ngIf="createComment" class="my-5">
       <h4 class="text-center">Create a comment!</h4>
-      <app-comment-form></app-comment-form>
+      <app-comment-form (createdComment)="addNewCommentToList($event)" ></app-comment-form>
     </div>
 
     <div class="comments-list">

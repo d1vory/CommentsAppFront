@@ -74,4 +74,8 @@ export class CommentsSectionComponent implements OnInit{
   toggleCreateCommentForm(): void {
     this.createComment = !this.createComment;
   }
+
+  addNewCommentToList($event: IComment) {
+    this.commentsList.unshift($event);
+  }
 }

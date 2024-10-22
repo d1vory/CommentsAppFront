@@ -63,4 +63,17 @@ export class CommentComponent {
     this.viewReplyForm = !this.viewReplyForm;
   }
 
+  addNewCommentToList($event: IComment) {
+    if(!$event) return;
+    if($event.parentCommentId == this.comment.id){
+      this.comment.replies.unshift($event);
+    }
+
+    //let parentComment = this.findParentComment($event.parentCommentId!);
+  }
+
+  // findParentComment(parentCommentId: number, ): IComment {
+  //
+  // }
+
 }

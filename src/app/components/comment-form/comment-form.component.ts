@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit, output} from '@angular/core';
 import {MatCard} from '@angular/material/card';
 import {MatError, MatFormFieldModule, MatLabel} from '@angular/material/form-field';
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -14,7 +14,8 @@ import {NotificationService} from '../../services/notificationService';
 import {NotificationType} from '../../data/Notification';
 import {MyError} from '../../data/Error';
 import {ContentChange, QuillEditorComponent, QuillModule} from 'ngx-quill';
-import {Observable} from 'rxjs';
+import {IComment} from '../../data/Comment';
+import {outputFromObservable} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-comment-form',
@@ -40,6 +41,7 @@ import {Observable} from 'rxjs';
 })
 export class CommentFormComponent implements OnInit {
   @Input() replyCommentId?: number;
+  createdComment = output<IComment>()
 
   readonly maxSize = 104857600; //10mb
   commentsService: CommentsService = inject(CommentsService);
@@ -80,41 +82,21 @@ export class CommentFormComponent implements OnInit {
     onSubmit(): void {
       if (this.commentForm?.valid) {
 
-        const username = <string>this.commentForm.value.username
-        const email=    <string>this.commentForm.value.email
-        const captcha=  <string>this.commentForm.value.captcha
-        const commentText =  this.cleanCommentText(<string>this.commentForm.value.text)
-        const homepage = <string>this.commentForm.value.homepage || ''
-        const uploadedFile = this.uploadedFile || undefined
-
-        let response: Observable<Object>;
-        if(this.replyCommentId){
-          response = this.commentsService.createReplyComment(
-            this.replyCommentId, username,email,captcha,commentText,homepage,uploadedFile,
-          )
-        }else{
-          response = this.commentsService.createComment(
-            username,email,captcha,commentText,homepage,uploadedFile,
-          )
-        }
-        response.subscribe({
-          next: (response) => {
-            this.notificationService.notify({
-              title: '',
-              type: NotificationType.success,
-              message: "Comment created!",
-            });
-          },
-          error: (error: HttpErrorResponse) => {
-            console.error(error);
-            const kek: MyError = error.error;
-            this.notificationService.notify({
-              title: '',
-              type: NotificationType.error,
-              message: kek.message,
-            });
+        this.commentsService.createComment(
+          <string>this.commentForm.value.username,
+          <string>this.commentForm.value.email,
+          <string>this.commentForm.value.captcha,
+          this.cleanCommentText(<string>this.commentForm.value.text),
+          <string>this.commentForm.value.homepage || '',
+          this.uploadedFile || undefined,
+          this.replyCommentId
+        ).subscribe({
+          next: (data: IComment) => {
+            this.createdComment.emit(data);
           }
         })
+
+
 
     }
   }
