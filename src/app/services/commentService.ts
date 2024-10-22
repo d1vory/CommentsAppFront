@@ -4,6 +4,7 @@ import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
 import {PaginatedList} from '../data/PaginatedList';
+import {Replies} from '../data/Replies';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,11 @@ export class CommentsService {
     };
 
     return this.http.get<PaginatedList<IComment>>(this.baseUrl + 'comments', {params})
+  }
+
+  getReplies(commentId: number): Observable<IComment[]> {
+    const url = `${this.baseUrl}comments/${commentId}/replies`;
+    return this.http.get<IComment[]>(url)
   }
 
   createComment(username: string, email: string, captcha: string, text: string, homepage: string = '', file: File | undefined): Observable<Object> {

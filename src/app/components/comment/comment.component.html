@@ -28,17 +28,26 @@
     </div>
   </mat-card-content>
 
-  <mat-card-actions class="d-flex justify-content-around">
+  <mat-card-actions class="d-flex ">
 
-      <button mat-fab extended color="primary"  class="d-flex justify-content-evenly action-btn">
+      <button mat-fab extended color="primary"  class="d-flex justify-content-evenly action-btn px-4">
             <mat-icon>reply</mat-icon>
           <span>Reply</span>
       </button>
 
-    <button mat-fab extended color="primary" class="d-flex justify-content-evenly action-btn">
+    <button *ngIf="!comment.parentCommentId" (click)="fetchReplies()" mat-fab extended color="primary" class="d-flex justify-content-evenly action-btn px-4 mx-4">
         <mat-icon fontIcon="expand">View replies</mat-icon>
       <span>View replies</span>
     </button>
 
   </mat-card-actions>
+
+  <mat-card-content *ngIf="comment.replies">
+    <app-comment
+      *ngFor="let comment of comment.replies"
+      [comment]="comment">
+    </app-comment>
+
+  </mat-card-content>
+
 </mat-card>

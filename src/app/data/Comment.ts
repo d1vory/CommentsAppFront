@@ -6,4 +6,6 @@ export interface IComment {
   createdAt: Date;
   file: string;
   user: IUser;
+  replies?: IComment[];
+  parentCommentId?: number;
 }

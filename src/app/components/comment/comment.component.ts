@@ -5,7 +5,13 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
 import {MatIcon} from '@angular/material/icon';
 import {IComment} from '../../data/Comment';
-import {DatePipe, NgIf} from '@angular/common';
+import {DatePipe, NgForOf, NgIf} from '@angular/common';
+import {CommentsService} from '../../services/commentService';
+import {NotificationService} from '../../services/notificationService';
+import {Replies} from '../../data/Replies';
+import {HttpErrorResponse} from '@angular/common/http';
+import {MyError} from '../../data/Error';
+import {NotificationType} from '../../data/Notification';
 
 
 @Component({
@@ -18,17 +24,38 @@ import {DatePipe, NgIf} from '@angular/common';
     MatButtonModule,
     MatIcon,
     DatePipe,
-    NgIf
+    NgIf,
+    NgForOf
   ],
   templateUrl: './comment.component.html',
   styleUrl: './comment.component.css'
 })
 export class CommentComponent {
   @Input() comment!: IComment;
+  //replies: Replies[] | null = null;
 
 
-  constructor() {
+  constructor(private commentService: CommentsService, private notificationService: NotificationService) {
 
   }
 
+  fetchReplies() {
+    const response = this.commentService.getReplies(this.comment.id);
+    response.subscribe({
+        next: (data) => {
+          this.comment.replies = data;
+        },
+        error: (error: HttpErrorResponse) => {
+          const err: MyError = error.error;
+          this.notificationService.notify({
+            title: '',
+            type: NotificationType.error,
+            message: err.message,
+          });
+        }
+
+    })
+
+
+  }
 }
