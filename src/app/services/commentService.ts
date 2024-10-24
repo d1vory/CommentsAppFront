@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {IComment} from '../data/Comment';
 import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import { map } from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {PaginatedList} from '../data/PaginatedList';
 import {Replies} from '../data/Replies';
 import {NotificationService} from './notificationService';
@@ -15,9 +15,10 @@ import {MyError} from '../data/Error';
 export class CommentsService {
   baseUrl = 'http://localhost:5052/';
 
-  constructor(private http: HttpClient, private notificationService: NotificationService) {}
+  constructor(private http: HttpClient, private notificationService: NotificationService) {
+  }
 
-  getComments(pageIndex: number = 1, pageSize: number=25): Observable<PaginatedList<IComment>> {
+  getComments(pageIndex: number = 1, pageSize: number = 25): Observable<PaginatedList<IComment>> {
     const params = {
       pageIndex: pageIndex.toString(),
       pageSize: pageSize.toString()
@@ -31,12 +32,16 @@ export class CommentsService {
     return this.http.get<IComment[]>(url)
   }
 
-  createComment(username: string, email: string, captcha: string, text: string, homepage: string = '', file: File | undefined, commentId: number| undefined): Observable<IComment>{
+  createComment(
+    username: string, email: string, captcha: string,
+    text: string, homepage: string = '', file: File | undefined,
+    commentId: number | undefined
+  ): Observable<IComment> {
     let url: string
-    if(commentId){
-      url=`${this.baseUrl}comments/${commentId}/reply/`
-    }else{
-      url=`${this.baseUrl}comments`
+    if (commentId) {
+      url = `${this.baseUrl}comments/${commentId}/reply/`
+    } else {
+      url = `${this.baseUrl}comments`
     }
 
     const formData: FormData = new FormData();
@@ -45,7 +50,7 @@ export class CommentsService {
     formData.append('captcha', captcha);
     formData.append('text', text);
     formData.append('homepage', homepage);
-    if(file){
+    if (file) {
       formData.append('file', file, file.name);
     }
 
@@ -70,6 +75,13 @@ export class CommentsService {
     })
     return response;
 
+  }
+
+  addReplyToComment(comment: IComment, reply: IComment): void {
+    if(comment.replies === undefined || comment.replies === null) {
+      comment.replies = [];
+    }
+    comment.replies.unshift(reply);
   }
 
 }

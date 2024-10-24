@@ -63,17 +63,27 @@ export class CommentComponent {
     this.viewReplyForm = !this.viewReplyForm;
   }
 
-  addNewCommentToList($event: IComment) {
-    if(!$event) return;
-    if($event.parentCommentId == this.comment.id){
-      this.comment.replies.unshift($event);
+  addNewCommentToList($createdComment: IComment) {
+    if(!$createdComment) return;
+    if($createdComment.parentCommentId == this.comment.id){
+      this.commentService.addReplyToComment(this.comment, $createdComment)
     }
-
-    //let parentComment = this.findParentComment($event.parentCommentId!);
   }
 
-  // findParentComment(parentCommentId: number, ): IComment {
+  // findParentComment(currentComment:IComment, targetCommentId: number): IComment | null {
+  //   if(currentComment.replies === undefined || currentComment.replies === null || currentComment.replies.length === 0){
+  //     return null;
+  //   }
+  //   if(currentComment.id == targetCommentId) {
+  //     return currentComment;
+  //   }
+  //   for (const comment of currentComment.replies) {
+  //     this.findParentComment(comment, targetCommentId);
+  //   }
+  //   return null
   //
   // }
+
+
 
 }
