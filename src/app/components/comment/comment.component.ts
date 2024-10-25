@@ -70,20 +70,4 @@ export class CommentComponent {
     }
   }
 
-  // findParentComment(currentComment:IComment, targetCommentId: number): IComment | null {
-  //   if(currentComment.replies === undefined || currentComment.replies === null || currentComment.replies.length === 0){
-  //     return null;
-  //   }
-  //   if(currentComment.id == targetCommentId) {
-  //     return currentComment;
-  //   }
-  //   for (const comment of currentComment.replies) {
-  //     this.findParentComment(comment, targetCommentId);
-  //   }
-  //   return null
-  //
-  // }
-
-
-
 }

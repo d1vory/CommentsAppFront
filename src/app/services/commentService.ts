@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OutputEmitterRef} from '@angular/core';
 import {IComment} from '../data/Comment';
 import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
@@ -33,9 +33,7 @@ export class CommentsService {
   }
 
   createComment(
-    username: string, email: string, captcha: string,
-    text: string, homepage: string = '', file: File | undefined,
-    commentId: number | undefined
+    username: string, email: string, captcha: string, text: string, homepage: string = '', file: File | undefined, commentId: number | undefined, parentComment: OutputEmitterRef<IComment>,
   ): Observable<IComment> {
     let url: string
     if (commentId) {
@@ -62,6 +60,9 @@ export class CommentsService {
           type: NotificationType.success,
           message: "Comment created!",
         });
+        parentComment.emit(data)
+        return data
+
       },
       error: (error: HttpErrorResponse) => {
         console.error(error);
@@ -73,7 +74,7 @@ export class CommentsService {
         });
       }
     })
-    return response;
+    return response
 
   }
 

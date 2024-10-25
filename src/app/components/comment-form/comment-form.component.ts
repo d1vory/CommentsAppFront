@@ -16,6 +16,7 @@ import {MyError} from '../../data/Error';
 import {ContentChange, QuillEditorComponent, QuillModule} from 'ngx-quill';
 import {IComment} from '../../data/Comment';
 import {outputFromObservable} from '@angular/core/rxjs-interop';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-comment-form',
@@ -89,14 +90,9 @@ export class CommentFormComponent implements OnInit {
           this.cleanCommentText(<string>this.commentForm.value.text),
           <string>this.commentForm.value.homepage || '',
           this.uploadedFile || undefined,
-          this.replyCommentId
-        ).subscribe({
-          next: (data: IComment) => {
-            this.createdComment.emit(data);
-          }
-        })
-
-
+          this.replyCommentId,
+          this.createdComment
+        )
 
     }
   }
