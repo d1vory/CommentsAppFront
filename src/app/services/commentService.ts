@@ -1,6 +1,6 @@
 import {Injectable, OutputEmitterRef} from '@angular/core';
 import {IComment} from '../data/Comment';
-import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpParams, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {PaginatedList} from '../data/PaginatedList';
@@ -18,11 +18,12 @@ export class CommentsService {
   constructor(private http: HttpClient, private notificationService: NotificationService) {
   }
 
-  getComments(pageIndex: number = 1, pageSize: number = 25): Observable<PaginatedList<IComment>> {
-    const params = {
-      pageIndex: pageIndex.toString(),
-      pageSize: pageSize.toString()
-    };
+  getComments(pageIndex: number = 1, pageSize: number = 25, orderBy: string | null): Observable<PaginatedList<IComment>> {
+    let params = new HttpParams().set('pageIndex', pageIndex).set('pageSize', pageSize)
+    if(orderBy != null) {
+      console.log("______________________", orderBy);
+      params = params.set('sortOrder', orderBy);
+    }
 
     return this.http.get<PaginatedList<IComment>>(this.baseUrl + 'comments', {params})
   }

@@ -8,11 +8,25 @@
       <div >
         <h5 >Comments ({{totalComments}})</h5>
       </div>
-      <div>
-        <button (click)="toggleCreateCommentForm()" mat-fab extended color="primary"  class="  action-btn p-4">
-          <mat-icon fontIcon="edit"></mat-icon>
-          <span>Create a comment</span>
-        </button>
+      <div class="d-flex justify-content-between">
+        <div class="mx-4 my-auto">
+          <button mat-button [matMenuTriggerFor]="orderBy">Order by {{orderByPlaceHolder}}</button>
+          <mat-menu #orderBy="matMenu">
+            <button (click)="sortComments('username', 'Username↑')" mat-menu-item>Username↑</button>
+            <button (click)="sortComments('-username', 'Username↓')" mat-menu-item>Username↓</button>
+            <button (click)="sortComments('email', 'Email↑')" mat-menu-item>Email↑</button>
+            <button (click)="sortComments('-email', 'Email↓')" mat-menu-item>Email↓</button>
+            <button (click)="sortComments('createdAt', 'CreatedAt↑')" mat-menu-item>CreatedAt↑</button>
+            <button (click)="sortComments('-createdAt', 'CreatedAt↓')" mat-menu-item>CreatedAt↓</button>
+          </mat-menu>
+        </div>
+
+        <div>
+          <button (click)="toggleCreateCommentForm()" mat-fab extended color="primary"  class="  action-btn p-4">
+            <mat-icon fontIcon="edit"></mat-icon>
+            <span>Create a comment</span>
+          </button>
+        </div>
       </div>
 
     </div>

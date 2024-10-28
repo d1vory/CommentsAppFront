@@ -14,13 +14,14 @@ import {MyError} from '../../data/Error';
 import {FormBuilder} from '@angular/forms';
 import {NotificationService} from '../../services/notificationService';
 import {MatCard} from '@angular/material/card';
-import {MatFabButton} from '@angular/material/button';
+import {MatButton, MatFabButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
+import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 
 @Component({
   selector: 'app-comments-section',
   standalone: true,
-  imports: [CommentComponent, NgForOf, CommentFormComponent, SimplealertModule, NotificationComponent, MatPaginator, MatCard, MatFabButton, MatIcon, NgIf],
+  imports: [CommentComponent, NgForOf, CommentFormComponent, SimplealertModule, NotificationComponent, MatPaginator, MatCard, MatFabButton, MatIcon, NgIf, MatMenu, MatMenuItem, MatButton, MatMenuTrigger],
   templateUrl: './comments-section.component.html',
   styleUrl: './comments-section.component.css'
 })
@@ -33,6 +34,7 @@ export class CommentsSectionComponent implements OnInit{
   pageSize: number = 25;
   pageIndex: number = 1;
   totalPages: number = 0;
+  orderByPlaceHolder: string = "CreatedAt↓";
 
   constructor(private notificationService: NotificationService) { }
 
@@ -40,8 +42,8 @@ export class CommentsSectionComponent implements OnInit{
     this.fetchComments(this.pageIndex, this.pageSize);
   }
 
-  fetchComments(pageIndex: number = 1, pageSize: number=25): void {
-    const response = this.commentsService.getComments(pageIndex, pageSize);
+  fetchComments(pageIndex: number = 1, pageSize: number=25, orderBy: string | null = null): void {
+    const response = this.commentsService.getComments(pageIndex, pageSize, orderBy);
     response.subscribe({
       next: (response) => {
         console.log(response);
@@ -77,5 +79,10 @@ export class CommentsSectionComponent implements OnInit{
 
   addNewCommentToList($event: IComment) {
     this.commentsList.unshift($event);
+  }
+
+  sortComments(orderBy:string, orderByPlaceHolder: string) {
+    this.orderByPlaceHolder = orderByPlaceHolder;
+    this.fetchComments(this.pageIndex, this.pageSize, orderBy);
   }
 }
