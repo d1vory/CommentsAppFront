@@ -1,7 +1,7 @@
 .smc-simplealert-container {
   display: none;
   width: 30%;
-  position: absolute;
+  position: fixed;
   z-index: 99;
   top: 0;
   right: 0;

@@ -17,6 +17,13 @@ import {ContentChange, QuillEditorComponent, QuillModule} from 'ngx-quill';
 import {IComment} from '../../data/Comment';
 import {outputFromObservable} from '@angular/core/rxjs-interop';
 import {map} from 'rxjs/operators';
+import {
+  RECAPTCHA_V3_SITE_KEY,
+  RecaptchaFormsModule,
+  RecaptchaModule,
+  RecaptchaV3Module,
+  ReCaptchaV3Service
+} from 'ng-recaptcha';
 
 @Component({
   selector: 'app-comment-form',
@@ -35,7 +42,11 @@ import {map} from 'rxjs/operators';
     MatIconButton,
     MatIcon,
     SimplealertModule,
-    QuillModule
+    QuillModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
+    RecaptchaV3Module,
+    FormsModule
   ],
   templateUrl: './comment-form.component.html',
   styleUrl: './comment-form.component.css'
@@ -58,14 +69,15 @@ export class CommentFormComponent implements OnInit {
   })
   uploadedFile: File | undefined;
 
-  constructor(private fb:FormBuilder, private notificationService: NotificationService) { }
+  constructor(private fb: FormBuilder, private notificationService: NotificationService, private recaptchaV3Service: ReCaptchaV3Service) {
+  }
 
   ngOnInit(): void {
   }
 
-    onFileSelected(event: any): void {
-      const files = event.target.files;
-      if (files.length > 0) {
+  onFileSelected(event: any): void {
+    const files = event.target.files;
+    if (files.length > 0) {
       for (let file of files) {
         if (this.isValidFileType(file)) {
           this.uploadedFile = file;
@@ -75,30 +87,29 @@ export class CommentFormComponent implements OnInit {
     }
   }
 
-    isValidFileType(file: File): boolean {
-      const allowedTypes = ['image/png', 'image/jpeg', 'image/gif', 'text/plain'];
-      return allowedTypes.includes(file.type);
-    }
+  isValidFileType(file: File): boolean {
+    const allowedTypes = ['image/png', 'image/jpeg', 'image/gif', 'text/plain'];
+    return allowedTypes.includes(file.type);
+  }
 
-    onSubmit(): void {
-      if (this.commentForm?.valid) {
-
-        this.commentsService.createComment(
-          <string>this.commentForm.value.username,
-          <string>this.commentForm.value.email,
-          <string>this.commentForm.value.captcha,
-          this.cleanCommentText(<string>this.commentForm.value.text),
-          <string>this.commentForm.value.homepage || '',
-          this.uploadedFile || undefined,
-          this.replyCommentId,
-          this.createdComment
-        )
+  onSubmit(): void {
+    if (this.commentForm?.valid) {
+      this.commentsService.createComment(
+        <string>this.commentForm.value.username,
+        <string>this.commentForm.value.email,
+        "testcapcha",
+        this.cleanCommentText(<string>this.commentForm.value.text),
+        <string>this.commentForm.value.homepage || '',
+        this.uploadedFile || undefined,
+        this.replyCommentId,
+        this.createdComment
+      )
 
     }
   }
 
   cleanCommentText(text: string): string {
-    return  text.replaceAll("<p>", "").replaceAll("</p>", "").replaceAll("<em>", "<i>").replaceAll("</em>", "</i>");
+    return text.replaceAll("<p>", "").replaceAll("</p>", "").replaceAll("<em>", "<i>").replaceAll("</em>", "</i>");
   }
 
 }

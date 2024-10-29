@@ -7,12 +7,13 @@ import {BrowserModule} from '@angular/platform-browser';
 import {SimplealertModule} from 'simplealert';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { QuillModule } from 'ngx-quill'
+import {NotificationComponent} from './components/notification/notification.component';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommentsSectionComponent, SimplealertModule, QuillModule],
+  imports: [RouterOutlet, CommentsSectionComponent, SimplealertModule, QuillModule, NotificationComponent],
   providers: [HttpClient],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

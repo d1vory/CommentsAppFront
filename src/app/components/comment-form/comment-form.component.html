@@ -24,14 +24,10 @@
       <input matInput formControlName="homepage" placeholder="Enter your homepage" />
     </mat-form-field>
 
-    <!-- CAPTCHA (Placeholder for now) -->
-    <mat-form-field appearance="outline" >
-      <mat-label>CAPTCHA</mat-label>
-      <input  matInput formControlName="captcha" placeholder="Enter CAPTCHA" required />
-      <mat-error *ngIf="commentForm.get('captcha')?.hasError('required')">
-        CAPTCHA is required
-      </mat-error>
-    </mat-form-field>
+<!--      <input  matInput formControlName="captcha" placeholder="Enter CAPTCHA" required />-->
+<!--      <mat-error *ngIf="commentForm.get('captcha')?.hasError('required')">-->
+<!--        CAPTCHA is required-->
+<!--      </mat-error>-->
 
 <!--    <app-text-editor formControlName="text"></app-text-editor>-->
 <!--    <mat-error *ngIf="commentForm.get('text')?.hasError('required')">Comment is required</mat-error>-->
@@ -49,6 +45,7 @@
       </mat-error>
 
     </mat-form-field>
+    <re-captcha formControlName="captcha" required siteKey="6LfU0m8qAAAAAHlIzb512gH_N-9ob74OHIys6Ges"></re-captcha>
 
     <button mat-raised-button color="primary" type="submit" [disabled]="commentForm.invalid">
       Submit

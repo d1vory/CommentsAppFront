@@ -21,7 +21,6 @@ export class CommentsService {
   getComments(pageIndex: number = 1, pageSize: number = 25, orderBy: string | null): Observable<PaginatedList<IComment>> {
     let params = new HttpParams().set('pageIndex', pageIndex).set('pageSize', pageSize)
     if(orderBy != null) {
-      console.log("______________________", orderBy);
       params = params.set('sortOrder', orderBy);
     }
 
