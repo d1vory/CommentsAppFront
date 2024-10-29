@@ -1,0 +1,58 @@
+<mat-card class="comment-card" id="comment-{{comment.id}}">
+  <div class="comment-header">
+    <div class="user-details">
+      <a class="username" [href]="comment.user.homepage" target="_blank">{{ comment.user.username }}</a>
+      <span class="timestamp">{{ comment.createdAt | date: 'MMM d, y, h:mm a' }}</span>
+
+      <div class="user-contact">
+        <a class="email" [href]="'mailto:' + comment.user.email">{{ comment.user.email }}</a>
+        <a class="homepage" [href]="comment.user.homepage" target="_blank">Visit Homepage</a>
+      </div>
+    </div>
+  </div>
+
+  <mat-card-content>
+
+    <div [innerHTML]="comment.text"></div>
+
+
+    <div *ngIf="comment.file" class="file-attachment">
+      <ng-template [ngIf]="comment.file.endsWith('.txt')" [ngIfElse]="elseBlock">
+        <a [href]="comment.file" download> <mat-icon>attachment</mat-icon> Download Attachment</a>
+      </ng-template>
+      <ng-template #elseBlock>
+        <img [src]="comment.file"  alt="image"/>
+      </ng-template>
+
+
+    </div>
+
+    <div *ngIf="viewReplyForm" class="my-5">
+      <h6  class="text-center">Reply to {{comment.user.username}}</h6>
+      <app-comment-form [replyCommentId]="comment.id" (createdComment)="addNewCommentToList($event)"></app-comment-form>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions class="d-flex ">
+
+      <button (click)="toggleReplyForm()" mat-fab extended color="primary"  class="d-flex justify-content-evenly action-btn px-4">
+            <mat-icon>reply</mat-icon>
+          <span>Reply</span>
+      </button>
+
+    <button *ngIf="!comment.parentCommentId" (click)="fetchReplies()" mat-fab extended color="primary" class="d-flex justify-content-evenly action-btn px-4 mx-4">
+        <mat-icon fontIcon="expand">View replies</mat-icon>
+      <span>View replies</span>
+    </button>
+
+  </mat-card-actions>
+
+  <mat-card-content *ngIf="comment.replies">
+    <app-comment
+      *ngFor="let comment of comment.replies"
+      [comment]="comment">
+    </app-comment>
+
+  </mat-card-content>
+
+</mat-card>

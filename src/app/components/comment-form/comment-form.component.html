@@ -1,0 +1,54 @@
+<mat-card class="comment-form-card">
+  <form [formGroup]="commentForm" (ngSubmit)="onSubmit()" class="comment-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" placeholder="Enter your username" required />
+      <mat-error *ngIf="commentForm?.get('username')?.hasError('required')">
+        Username is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="Enter your email" required />
+      <mat-error *ngIf="commentForm?.get('email')?.hasError('required')">
+        Email is required
+      </mat-error>
+      <mat-error *ngIf="commentForm.get('email')?.hasError('email')">
+        Enter a valid email
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Homepage (optional)</mat-label>
+      <input matInput formControlName="homepage" placeholder="Enter your homepage" />
+    </mat-form-field>
+
+<!--      <input  matInput formControlName="captcha" placeholder="Enter CAPTCHA" required />-->
+<!--      <mat-error *ngIf="commentForm.get('captcha')?.hasError('required')">-->
+<!--        CAPTCHA is required-->
+<!--      </mat-error>-->
+
+<!--    <app-text-editor formControlName="text"></app-text-editor>-->
+<!--    <mat-error *ngIf="commentForm.get('text')?.hasError('required')">Comment is required</mat-error>-->
+
+    <quill-editor format="html" formControlName="text"></quill-editor>
+
+    <mat-form-field appearance="outline" class="file-input">
+      <mat-label>Upload Files (images and .txt files only)</mat-label>
+
+      <ngx-mat-file-input formControlName="file" (change)="onFileSelected($event)" valuePlaceholder="No file selected" accept=".txt,image/*"></ngx-mat-file-input>
+      <mat-icon matSuffix>folder</mat-icon>
+      <mat-error *ngIf="commentForm.get('file')?.hasError('maxContentSize')">
+        The total size must not exceed {{commentForm.get('file')?.getError('maxContentSize').maxSize | byteFormat}} ({{commentForm.get('file')?.getError('maxContentSize').actualSize
+        | byteFormat}}).
+      </mat-error>
+
+    </mat-form-field>
+    <re-captcha formControlName="captcha" required siteKey="6LfU0m8qAAAAAHlIzb512gH_N-9ob74OHIys6Ges"></re-captcha>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="commentForm.invalid">
+      Submit
+    </button>
+  </form>
+</mat-card>

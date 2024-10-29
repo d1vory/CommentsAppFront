@@ -1,0 +1,54 @@
+<mat-card>
+<div class="container my-5">
+  <div class="comments">
+    <div class="d-flex justify-content-between my-4">
+      <div >
+        <h5 >Comments ({{totalComments}})</h5>
+      </div>
+      <div class="d-flex justify-content-between">
+        <div class="mx-4 my-auto">
+          <button mat-button [matMenuTriggerFor]="orderBy">Order by {{orderByPlaceHolder}}</button>
+          <mat-menu #orderBy="matMenu">
+            <button (click)="sortComments('username', 'Username↑')" mat-menu-item>Username↑</button>
+            <button (click)="sortComments('-username', 'Username↓')" mat-menu-item>Username↓</button>
+            <button (click)="sortComments('email', 'Email↑')" mat-menu-item>Email↑</button>
+            <button (click)="sortComments('-email', 'Email↓')" mat-menu-item>Email↓</button>
+            <button (click)="sortComments('createdAt', 'CreatedAt↑')" mat-menu-item>CreatedAt↑</button>
+            <button (click)="sortComments('-createdAt', 'CreatedAt↓')" mat-menu-item>CreatedAt↓</button>
+          </mat-menu>
+        </div>
+
+        <div>
+          <button (click)="toggleCreateCommentForm()" mat-fab extended color="primary"  class="  action-btn p-4">
+            <mat-icon fontIcon="edit"></mat-icon>
+            <span>Create a comment</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div *ngIf="createComment" class="my-5">
+      <h4 class="text-center">Create a comment!</h4>
+      <app-comment-form (createdComment)="addNewCommentToList($event)" ></app-comment-form>
+    </div>
+
+    <div class="comments-list">
+      <app-comment
+        *ngFor="let comment of commentsList"
+        [comment]="comment">
+      </app-comment>
+    </div>
+  </div>
+
+  <mat-paginator [length]="totalComments"
+                 [pageSize]="pageSize"
+                 [pageIndex]="pageIndex"
+                 [pageSizeOptions]="[5, 10, 20]"
+                 (page)="onPageChange($event)"
+  class="pagination"
+  >
+  </mat-paginator>
+</div>
+
+</mat-card>
